@@ -4,3 +4,5 @@
 !uv.lock
 !model_aliases.json
 !realtime-console
+!ctranslate2
+!scripts/check_ct_install.py
