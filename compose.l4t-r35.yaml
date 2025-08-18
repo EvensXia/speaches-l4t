@@ -1,0 +1,25 @@
+services:
+  speaches:
+    # Target: Jetson / aarch64
+    platform: linux/arm64
+    image: speaches:jetson-r35
+
+    build:
+      context: .
+      dockerfile: Dockerfile.l4t
+      args:
+        BASE_IMAGE: nvcr.io/nvidia/l4t-jetpack:r35.4.1
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    volumes:
+      - hf-hub-cache:/home/ubuntu/.cache/huggingface/hub
+
+volumes:
+  hf-hub-cache:
