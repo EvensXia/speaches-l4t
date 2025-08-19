@@ -17,18 +17,42 @@ docker buildx create --name jetson-builder --use
 docker buildx inspect --bootstrap
 ```
 
-## Pull Base Image
-```bash
-docker pull nvcr.io/nvidia/l4t-jetpack:r36.4.0 # latest @ 2025-08-14
-```
+## For latest （Jetpack R36）
 
-## Build
+**Orin** Only
+
 ```bash
+# pull
+# docker pull nvcr.io/nvidia/l4t-jetpack:r36.4.0 # latest @ 2025-08-14
+# build
 DOCKER_DEFAULT_PLATFORM=linux/arm64 docker compose -f compose.l4t.yaml build
-```
-
-## Store
-```bash
+# save
 mkdir -p images
 docker save speaches:jetson-latest > images/speaches_jetson-latest.tar
 ```
+## For Jetpack R35
+
+**Xavier | Orin**
+
+```bash
+# pull
+# docker pull nvcr.io/nvidia/l4t-jetpack:r35.4.1 # latest @ 2025-08-14
+# build
+DOCKER_DEFAULT_PLATFORM=linux/arm64 docker compose -f compose.l4t-r35.yaml build
+# save
+mkdir -p images
+docker save speaches:jetson-r35 > images/speaches_jetson-r35.tar
+```
+
+## More Previous
+
+Like the TX2 Modules using the older compile toolchain, you can modified the [Dockerfile.l4t](Dockerfile.l4t) like [Dockerfile.l4t-r35](Dockerfile.l4t-r35)
+
+## Note
+*CTranslater2:: ctranslate2/src/ops/mean_gpu.cu*
+
+The source code
+```c
+output[blockIdx.x] /= AccumT(axis_size);
+```
+is only support on CUDA>=12.0, while JP35 Only have CUDA 11.4, So I have modified this operator to support it.
