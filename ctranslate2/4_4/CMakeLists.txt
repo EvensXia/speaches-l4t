@@ -50,7 +50,7 @@ else()
   set(INTEL_ROOT_DEFAULT "/opt/intel")
 endif()
 set(INTEL_ROOT ${INTEL_ROOT_DEFAULT} CACHE FILEPATH "Path to Intel root directory")
-set(OPENMP_RUNTIME "INTEL" CACHE STRING "OpenMP runtime (INTEL, COMP, NONE)")
+set(OPENMP_RUNTIME "NONE" CACHE STRING "OpenMP runtime (INTEL, COMP, NONE)")
 
 # Set Release build type by default to get sane performance.
 if(NOT CMAKE_BUILD_TYPE)
